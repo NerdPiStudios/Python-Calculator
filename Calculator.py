@@ -1,7 +1,4 @@
 import sys
-print("Welcome to NPS calculator.")
-print("Type quit at any time to exit the program.")
-print("Please enter a problem.")
 
 def check_to_quit(info):
     try:
@@ -70,3 +67,15 @@ def get_problem():
     sorted(parentheses) # Sorts parentheses and operator dictionaries and then returns them along with the digits list
     sorted(operators)
     return([digits,parentheses,operators])
+
+def mainloop():
+    print('Welcome to NPS calculator.')
+    print('Type quit at any time to exit the program.')
+    print('Please enter a problem.')
+    while True:
+        result = None
+        while result == None:
+            result = get_problem()
+        print('Please enter another problem or type quit to exit.')
+
+mainloop()
