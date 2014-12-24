@@ -53,6 +53,15 @@ def get_problem():
             elif digits[i] == ')':
                 parentheses[i] = ')'
                 parenthesesEqual -= 1
+        for i in parentheses:
+            if parentheses[i] == '(':
+                if digits[i+1] in '+/*': # Checks all operators except - which means a negative number
+                    print('An operator cannot be first or last within parentheses.')
+                    pass
+            elif parentheses[i] == ')':
+                if digits[i-1] in '+-/*':
+                    print('An operator cannot be first or last within parentheses.')
+                    pass
 
         if len(digits) == 0: # Checks if number of digits is greater than 0
             print('Please enter a problem.')
