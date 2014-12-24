@@ -18,6 +18,7 @@ def get_problem():
         operators = {}
         parentheses = {}
         digitsDelete = []
+        error = False
 
         problem = input()
         check_to_quit(problem) # Checks if user has entered quit to end the program
@@ -42,41 +43,44 @@ def get_problem():
             del digitsDelete[:] # Clears digitsDelete list so the elements can be added back in the next iteration
 
         for i in range(0,len(digits)):
-            if digits[i] in '+-*/': # If digit is operator, adds to operator dictionary
-                operators[i] = digits[i]
-            if digits[i] in '*-+/' and digits[i-1] in '-+/' and i != 0: # Checks that no two operators are next to each other except exponentation (**)
-                print('Two operators cannot be next to each other. Please enter the problem again.')
-                pass
             if digits[i] == '(': # Adds to parentheses dictionary if digit is a parenthesis
                 parentheses[i] = '('
                 parenthesesEqual += 1
             elif digits[i] == ')':
                 parentheses[i] = ')'
                 parenthesesEqual -= 1
+            if digits[i] in '+-*/': # If digit is operator, adds to operator dictionary
+                operators[i] = digits[i]
+            if digits[i] in '*-+/' and digits[i-1] in '-+/' and i != 0 and error == False: # Checks that no two operators are next to each other except exponentation (**)
+                print('Two operators cannot be next to each other.')
+                error = True
         for i in parentheses:
             if parentheses[i] == '(':
                 if digits[i+1] in '+/*': # Checks all operators except - which means a negative number
                     print('An operator cannot be first or last within parentheses.')
-                    pass
+                    error = True
+                    break
             elif parentheses[i] == ')':
                 if digits[i-1] in '+-/*':
                     print('An operator cannot be first or last within parentheses.')
-                    pass
+                    error = True
+                    break
 
         if len(digits) == 0: # Checks if number of digits is greater than 0
             print('Please enter a problem.')
-            pass
-        elif len(operators) == 0: # Checks there is at least one operator
-            print('Please enter a problem with an operator.')
-            pass
-        elif digits[0] in '+-*/' or digits[len(digits)-1] in '+-*/': # Checks that no operator is first or last
-            print('An operator cannot be first or last. Please enter the problem again.')
-            pass
-        elif parenthesesEqual != 0: # Checks that the number of parentheses is equal
-            print('Please enter the problem again. The number of parentheses is not equal.')
-            pass
-        else:
+            continue
+        if len(operators) == 0: # Checks there is at least one operator
+            print('There are no operators.')
+            error = True
+        if digits[0] in '+-*/' or digits[len(digits)-1] in '+-*/': # Checks that no operator is first or last
+            print('An operator cannot be first or last.')
+            error = True
+        if parenthesesEqual != 0: # Checks that the number of parentheses is equal
+            print('The number of parentheses of each type is not equal.')
+            error = True
+        if error == False:
             break
+        print('Please enter the problem again.')
 
     sorted(parentheses) # Sorts parentheses and operator dictionaries and then returns them along with the digits list
     sorted(operators)
