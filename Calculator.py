@@ -26,7 +26,7 @@ def get_problem():
             if i in '0123456789()*-+/': # Adds character to digits list if it is a number, operator, or a parenthesis
                 digits.append(i)
 
-        while True: # Deletes parentheses if they are useless   i.e. ()
+        while True: # Deletes parentheses if they are useless   i.e. () or )----(
             for i in range(0,len(digits)): # Adds parentheses with index number and type ( or )
                 if digits[i] == ')' and digits[i-1] == '(': # Checks if parentheses is () or )----(
                     digitsDelete.append(i) # Adds to digitsDelete list to be deleted
@@ -59,7 +59,7 @@ def get_problem():
             print('Please enter a problem with an operator.')
             pass
         elif digits[0] in '+-*/' or digits[len(digits)-1] in '+-*/': # Checks that no two operators are next to eachother except exponentation (**)
-            print('An operator cannot be first or last.')
+            print('An operator cannot be first or last. Please enter the problem again.')
             pass
         elif parenthesesEqual != 0: # Checks that the number of parentheses is equal
             print('Please enter the problem again. The number of parentheses is not equal.')
