@@ -44,7 +44,7 @@ def get_problem():
         for i in range(0,len(digits)):
             if digits[i] in '+-*/': # If digit is operator, adds to operator dictionary
                 operators[i] = digits[i]
-            if digits[i] in '*-+/' and digits[i-1] in '-+/' and i != 0: # Checks if two operators are next to each other
+            if digits[i] in '*-+/' and digits[i-1] in '-+/' and i != 0: # Checks that no two operators are next to each other except exponentation (**)
                 print('Two operators cannot be next to each other. Please enter the problem again.')
                 pass
             if digits[i] == '(': # Adds to parentheses dictionary if digit is a parenthesis
@@ -60,7 +60,7 @@ def get_problem():
         elif len(operators) == 0: # Checks there is at least one operator
             print('Please enter a problem with an operator.')
             pass
-        elif digits[0] in '+-*/' or digits[len(digits)-1] in '+-*/': # Checks that no two operators are next to eachother except exponentation (**)
+        elif digits[0] in '+-*/' or digits[len(digits)-1] in '+-*/': # Checks that no operator is first or last
             print('An operator cannot be first or last. Please enter the problem again.')
             pass
         elif parenthesesEqual != 0: # Checks that the number of parentheses is equal
