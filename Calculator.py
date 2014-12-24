@@ -26,16 +26,18 @@ def get_problem():
             if i in '0123456789()*-+/': # Adds character to digits list if it is a number, operator, or a parenthesis
                 digits.append(i)
 
-        while True: # Deletes parentheses if they are useless   i.e. () or )----(
-            for i in range(0,len(digits)): # Adds parentheses with index number and type ( or )
+        while True:
+            for i in range(0,len(digits)):
                 if digits[i] == ')' and digits[i-1] == '(': # Checks if parentheses is () or )----(
                     digitsDelete.append(i) # Adds to digitsDelete list to be deleted
                     digitsDelete.append(i-1)
+                if digits[i] in '123456789' and digits[i-1] == '0' and i != 0: # Checks if 0 is not needed
+                    digitsDelete.append(i-1) # Adds to digitsDelete list to be deleted
             if len(digitsDelete) == 0: # Breaks loop if there is nothing left to delete
                 break
-            digitsDelete.sort() # Sorts and reverses list to prevent list index error when deleting parentheses
+            digitsDelete.sort() # Sorts and reverses list to prevent list index error when deleting
             digitsDelete.reverse()
-            for i in digitsDelete: # Deletes parentheses from digits list
+            for i in digitsDelete: # Deletes items
                     del digits[i]
             del digitsDelete[:] # Clears digitsDelete list so the elements can be added back in the next iteration
 
