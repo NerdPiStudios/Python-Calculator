@@ -28,12 +28,18 @@ def get_problem():
                 digits.append(i)
 
         while True:
+            insertStar = []
             for i in range(0,len(digits)):
                 if digits[i] == ')' and digits[i-1] == '(': # Checks if parentheses is () or )----(
                     digitsDelete.append(i) # Adds to digitsDelete list to be deleted
                     digitsDelete.append(i-1)
                 if digits[i] in '123456789' and digits[i-1] == '0' and i != 0: # Checks if 0 is not needed
                     digitsDelete.append(i-1) # Adds to digitsDelete list to be deleted
+                try:
+                    if digits[i] == ')' and digits[i+1] == '(':
+                        insertStar.append(i+1)
+                except:
+                    pass
             if len(digitsDelete) == 0: # Breaks loop if there is nothing left to delete
                 break
             digitsDelete.sort() # Sorts and reverses list to prevent list index error when deleting
@@ -41,6 +47,8 @@ def get_problem():
             for i in digitsDelete: # Deletes items
                     del digits[i]
             del digitsDelete[:] # Clears digitsDelete list so the elements can be added back in the next iteration
+        for i in insertStar:
+            digits.insert(i, '*')
 
         for i in range(0,len(digits)):
             if digits[i] == '(': # Adds to parentheses dictionary if digit is a parenthesis
