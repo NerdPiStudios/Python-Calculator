@@ -257,9 +257,6 @@ def solve_parentheses(info):
                     number1list = working[operatorsWorking[currentOperator-1]+1:operatorsWorking[currentOperator]]
                     number2list = working[operatorsWorking[currentOperator]+1:operatorsWorking[currentOperator+1]]
 
-                print(working)
-                print(number1list)
-                print(number2list)
                 returnedValue = get_two_numbers(number1list, number2list)
                 number1 = returnedValue[0]
                 number2 = returnedValue[1]
@@ -290,7 +287,6 @@ def solve_parentheses(info):
                 working = workingPart1 + workingPart2
 
             else:
-                print(digits)
                 return digits
 
 def solve_program(info):
@@ -379,9 +375,9 @@ def solve_program(info):
             digits = workingPart1 + workingPart2
 
         else:
-            print(digits)
             digits = get_two_numbers(digits, ['1'])[0]
-            print(digits)
+            if digits%1 == 0:
+                digits = int(digits)
             return digits
 
 def mainloop():
