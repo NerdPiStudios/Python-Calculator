@@ -19,6 +19,7 @@ def get_problem():
         parentheses = {}
         digitsDelete = []
         error = False
+        allZeros = False
 
         problem = input()
         check_to_quit(problem) # Checks if user has entered quit to end the program
@@ -62,6 +63,19 @@ def get_problem():
             if digits[i] in '*-+/' and digits[i-1] in '-+/' and i != 0 and error == False: # Checks that no two operators are next to each other except exponentation (**)
                 print('Two operators cannot be next to each other.')
                 error = True
+            if digits[i-1] == '/' and digits[i] == '0' and i != 0 and allZeros == False:
+                allZeros = True
+                for i in range(i,len(digits)):
+                    if digits[i] in '*-/+()':
+                        break
+                    elif digits[i] == '0':
+                        pass
+                    else:
+                        allZeros = False
+                        break
+                if allZeros == True:
+                    print('A number cannot be divided by zero.')
+                    error = True
         for i in parentheses:
             if parentheses[i] == '(':
                 if digits[i+1] in '+/*': # Checks all operators except - which means a negative number
